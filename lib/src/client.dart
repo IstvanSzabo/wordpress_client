@@ -60,6 +60,7 @@ class WordpressClient {
   Future<List<Post>> listPosts(
       {List<int> categoryIDs: null,
       bool injectObjects: true,
+      List<int> excludeIDs: null,
       int page: 1,
       int perPage: 10}) async {
     String _endpoint = '/wp/v2/posts';
@@ -74,6 +75,12 @@ class WordpressClient {
     if (categoryIDs != null && categoryIDs.length > 0) {
       queryString = _addParamToQueryString(
           queryString, 'categories', categoryIDs.join(','));
+    }
+
+    // Exclude posts?
+    if (excludeIDs != null && excludeIDs.length > 0) {
+      queryString =
+          _addParamToQueryString(queryString, 'exclude', excludeIDs.join(','));
     }
 
     // Append the query string
