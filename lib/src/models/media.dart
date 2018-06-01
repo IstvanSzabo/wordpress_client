@@ -88,6 +88,8 @@ class Media {
   /// Convenience method to retrieve large URL
   String get featuredMediaURLLarge => _featuredMediaURLLarge();
 
+  Media();
+
   Media.fromMap(Map<String, dynamic> map) {
     if (map == null) {
       return;

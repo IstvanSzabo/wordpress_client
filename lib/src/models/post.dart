@@ -82,6 +82,8 @@ class Post {
   // Injected objects
   Media featuredMedia;
 
+  Post();
+
   Post.fromMap(Map<String, dynamic> map) {
     if (map == null) {
       return;

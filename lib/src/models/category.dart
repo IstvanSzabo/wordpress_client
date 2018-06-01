@@ -26,6 +26,8 @@ class Category {
   /// Meta fields
   dynamic meta; // List?
 
+  Category();
+
   Category.fromMap(Map<String, dynamic> map) {
     if (map == null) {
       return;
