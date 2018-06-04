@@ -104,6 +104,39 @@ class WordpressClient {
     return posts;
   }
 
+  /// Get all available media.
+  ///
+  /// If [mediaIDs] list is provided then only these specific media items
+  /// will be returned. The [page] and [perPage] parameters allow for pagination.
+  Future<List<Media>> listMedia({List<int> includeIDs,
+      int page: 1,
+        int perPage: 10}) async {
+    String _endpoint = '/wp/v2/media';
+
+    // Build query string starting with pagination
+    String queryString = '';
+    queryString = _addParamToQueryString(queryString, 'page', page.toString());
+    queryString =
+        _addParamToQueryString(queryString, 'per_page', perPage.toString());
+
+    // Requesting specific items
+    if (includeIDs != null && includeIDs.length > 0) {
+      queryString =
+          _addParamToQueryString(queryString, 'include', includeIDs.join(','));
+    }
+
+    // Append the query string
+    _endpoint += queryString;
+
+    // Retrieve the data
+    List<Map> mediaMaps = await _get(_endpoint);
+
+    List<Media> media = new List();
+    media = mediaMaps.map((mediaMap) => new Media.fromMap(mediaMap)).toList();
+
+    return media;
+  }
+
   /// Get post
   Future<Post> getPost(int postID, {bool injectObjects: true}) async {
     if (postID == null) {
