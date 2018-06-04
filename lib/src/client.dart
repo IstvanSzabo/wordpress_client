@@ -59,7 +59,7 @@ class WordpressClient {
   /// and [perPage] parameters allow for pagination.
   Future<List<Post>> listPosts(
       {List<int> categoryIDs: null,
-      bool injectObjects: true,
+      bool injectObjects: false,
       List<int> excludeIDs: null,
       int page: 1,
       int perPage: 10}) async {
@@ -138,7 +138,7 @@ class WordpressClient {
   }
 
   /// Get post
-  Future<Post> getPost(int postID, {bool injectObjects: true}) async {
+  Future<Post> getPost(int postID, {bool injectObjects: false}) async {
     if (postID == null) {
       return null;
     }
